@@ -34,6 +34,7 @@ export type TDropdownInputProps = {
   error?: string;
   helperText?: string;
   isMultiple?: boolean;
+  itemLimit?: number;
   isSearchable?: boolean;
   dropdownIcon?: React.ReactNode;
   labelStyle?: TextStyle;

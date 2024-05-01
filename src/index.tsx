@@ -28,6 +28,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
   onValueChange,
   selectedValue,
   isMultiple,
+  itemLimit,
   isSearchable,
   dropdownIcon,
   labelStyle,
@@ -74,7 +75,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
 
   useEffect(() => {
     setNewOptions(options);
-    return () => {};
+    return () => { };
   }, [options]);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
       ? setSelectedItems(Array.isArray(selectedValue) ? selectedValue : [])
       : setSelectedItem(selectedValue);
 
-    return () => {};
+    return () => { };
   }, [selectedValue, isMultiple, onValueChange]);
 
   /*===========================================
@@ -133,6 +134,12 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
       if (selectedValues?.includes(value)) {
         selectedValues = selectedValues.filter((item) => item !== value);
       } else {
+
+        if (itemLimit && selectedValues.length >= itemLimit) {
+          onValueChange(selectedValues); // send value to parent
+          return selectedValues;
+        }
+        
         selectedValues.push(value);
       }
       onValueChange(selectedValues); // send value to parent
@@ -197,7 +204,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
     if (isMultiple) {
       checkSelectAll(selectedItems);
     }
-    return () => {};
+    return () => { };
   }, [checkSelectAll, isMultiple, selectedItems]);
 
   /*===========================================
@@ -292,7 +299,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
     if (hideModal) {
       setOpen(false);
     }
-    return () => {};
+    return () => { };
   }, [hideModal]);
 
   let primary = primaryColor || colors.gray;
@@ -303,21 +310,21 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
   const setIndexOfSelectedItem = (selectedLabel: string) => {
     isSectionList
       ? (options as TSectionListItem[] | undefined)?.map(
-          (item: TSectionListItem, sectionIndex: number) => {
-            item?.data?.find((dataItem: TFlatListItem, itemIndex: number) => {
-              if (dataItem[optLabel] === selectedLabel) {
-                setListIndex({ sectionIndex, itemIndex });
-              }
-            });
-          }
-        )
-      : (options as TFlatListItem[] | undefined)?.find(
-          (item: TFlatListItem, itemIndex: number) => {
-            if (item[optLabel] === selectedLabel) {
-              setListIndex({ itemIndex });
+        (item: TSectionListItem, sectionIndex: number) => {
+          item?.data?.find((dataItem: TFlatListItem, itemIndex: number) => {
+            if (dataItem[optLabel] === selectedLabel) {
+              setListIndex({ sectionIndex, itemIndex });
             }
+          });
+        }
+      )
+      : (options as TFlatListItem[] | undefined)?.find(
+        (item: TFlatListItem, itemIndex: number) => {
+          if (item[optLabel] === selectedLabel) {
+            setListIndex({ itemIndex });
           }
-        );
+        }
+      );
   };
 
   return (
@@ -342,6 +349,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
         selectedItemStyle={selectedItemStyle}
         multipleSelectedItemStyle={multipleSelectedItemStyle}
         isMultiple={isMultiple}
+        itemLimit={itemLimit}
         primaryColor={primary}
         disabled={disabled}
         placeholderStyle={placeholderStyle}
@@ -379,7 +387,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
                 isMultiple &&
                 modifiedOptions?.length > 1 && (
                   <View style={styles.optionsContainerStyle}>
-                    <TouchableOpacity onPress={() => {}}>
+                    <TouchableOpacity onPress={() => { }}>
                       <CheckBox
                         value={selectAll}
                         label={
@@ -407,6 +415,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
           optionLabel={optLabel}
           optionValue={optValue}
           isMultiple={isMultiple}
+          itemLimit={itemLimit}
           isSearchable={isSearchable}
           selectedItems={selectedItems}
           selectedItem={selectedItem}
