@@ -29,6 +29,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
   selectedValue,
   isMultiple,
   itemLimit,
+  initialCollapsedTitles,
   isSearchable,
   dropdownIcon,
   labelStyle,
@@ -350,6 +351,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
         multipleSelectedItemStyle={multipleSelectedItemStyle}
         isMultiple={isMultiple}
         itemLimit={itemLimit}
+        initialCollapsedTitles={initialCollapsedTitles}
         primaryColor={primary}
         disabled={disabled}
         placeholderStyle={placeholderStyle}
@@ -430,6 +432,7 @@ export const DropdownSelect: React.FC<DropdownProps> = ({
           checkboxControls={checkboxControls}
           listIndex={listIndex}
           emptyListMessage={listControls?.emptyListMessage}
+          initialCollapsedTitles={initialCollapsedTitles}
         />
       </CustomModal>
     </>

@@ -18,6 +18,7 @@ const DropdownSectionList = ({
   isSearchable,
   selectedItems,
   selectedItem,
+  initialCollapsedTitles,
   handleMultipleSelections,
   handleSingleSelection,
   primaryColor,
@@ -38,7 +39,7 @@ const DropdownSectionList = ({
    * Expand all sections
    */
   useEffect(() => {
-    let initialState = new Set(extractPropertyFromArray(options, 'title'));
+    let initialState = new Set(initialCollapsedTitles);
     setExpandedSections(initialState);
   }, [options]);
 

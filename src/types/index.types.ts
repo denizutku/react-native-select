@@ -35,6 +35,7 @@ export type TDropdownInputProps = {
   helperText?: string;
   isMultiple?: boolean;
   itemLimit?: number;
+  initialCollapsedTitles?: string[];
   isSearchable?: boolean;
   dropdownIcon?: React.ReactNode;
   labelStyle?: TextStyle;
