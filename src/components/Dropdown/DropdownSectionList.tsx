@@ -33,14 +33,18 @@ const DropdownSectionList = ({
   ...rest
 }: any) => {
   const [expandedSections, setExpandedSections] = useState(new Set());
+  const [initialized, setInitialized] = useState(false);
 
   /**
    * Expand all sections
    */
   useEffect(() => {
-    let initialState = new Set(initialCollapsedTitles);
-    setExpandedSections(initialState);
-  }, [options]);
+    if (!initialized) {
+      let initialState = new Set(initialCollapsedTitles);
+      setExpandedSections(initialState);
+      setInitialized(true);
+    }
+  }, []);
 
   /**
    * @param title
