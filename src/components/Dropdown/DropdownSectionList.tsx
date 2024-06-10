@@ -7,7 +7,6 @@ import {
   ListEmptyComponent,
   SectionHeaderTitle,
 } from '../Others';
-import { extractPropertyFromArray } from '../../utils';
 import { TSectionList } from 'src/types/index.types';
 
 const DropdownSectionList = ({
