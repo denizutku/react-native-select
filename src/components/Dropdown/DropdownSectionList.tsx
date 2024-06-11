@@ -7,6 +7,7 @@ import {
   ListEmptyComponent,
   SectionHeaderTitle,
 } from '../Others';
+import { extractPropertyFromArray } from '../../utils';
 import { TSectionList } from 'src/types/index.types';
 
 const DropdownSectionList = ({
@@ -17,7 +18,6 @@ const DropdownSectionList = ({
   isSearchable,
   selectedItems,
   selectedItem,
-  initialCollapsedTitles,
   handleMultipleSelections,
   handleSingleSelection,
   primaryColor,
@@ -33,18 +33,14 @@ const DropdownSectionList = ({
   ...rest
 }: any) => {
   const [expandedSections, setExpandedSections] = useState(new Set());
-  const [initialized, setInitialized] = useState(false);
 
   /**
    * Expand all sections
    */
   useEffect(() => {
-    if (!initialized) {
-      let initialState = new Set(initialCollapsedTitles);
-      setExpandedSections(initialState);
-      setInitialized(true);
-    }
-  }, []);
+    let initialState = new Set(extractPropertyFromArray(options, 'title'));
+    setExpandedSections(initialState);
+  }, [options]);
 
   /**
    * @param title
